@@ -8,9 +8,13 @@ on:
 jobs:
   fetch-and-process:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 添加写入权限
     
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整的git历史
       
       - name: 设置 Node.js
         uses: actions/setup-node@v4
@@ -27,6 +31,10 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          
+          # 确保主分支存在
+          git checkout -B main
+          
           git add data.m3u
           git commit -m "更新数据文件" || exit 0
-          git push 
+          git push --set-upstream origin main 
