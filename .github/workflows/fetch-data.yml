@@ -1,0 +1,32 @@
+name: 定时获取数据
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'  # 每12小时运行一次
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  fetch-and-process:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: 安装依赖
+        run: npm install axios
+          
+      - name: 运行数据处理脚本
+        run: node process-data.js
+        
+      - name: 提交更改
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data.m3u
+          git commit -m "更新数据文件" || exit 0
+          git push 
