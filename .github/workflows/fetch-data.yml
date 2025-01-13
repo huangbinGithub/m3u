@@ -34,7 +34,7 @@ jobs:
           
           # 确保主分支存在
           git checkout -B main
-          
+          git pull origin main
           git add data.m3u
           git commit -m "更新数据文件" || exit 0
           git push --set-upstream origin main 
