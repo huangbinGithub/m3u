@@ -16,6 +16,12 @@ jobs:
         with:
           fetch-depth: 0  # 获取完整的git历史
       
+      - name: 切换分支
+        run: |
+          git fetch origin # 获取远程更新
+          git reset --hard origin/main  # 将本地 main 分支重置为远程 main 分支
+          git clean -fd
+          
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
@@ -23,6 +29,7 @@ jobs:
           
       - name: 安装依赖
         run: npm install axios
+        
           
       - name: 运行数据处理脚本
         run: node process-data.js
