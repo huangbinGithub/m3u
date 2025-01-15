@@ -16,12 +16,6 @@ jobs:
         with:
           fetch-depth: 0  # 获取完整的git历史
       
-      - name: 切换分支
-        run: |
-          git fetch origin # 获取远程更新
-          git reset --hard origin/main  # 将本地 main 分支重置为远程 main 分支
-          git clean -fd
-          
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
@@ -42,4 +36,4 @@ jobs:
           
           git add data.m3u
           git commit -m "更新数据文件" || exit 0
-          git push --set-upstream origin main 
+          git push
