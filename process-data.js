@@ -5,8 +5,8 @@ const fs = require("fs").promises;
 const { resetm3u } = require("./lib");
 async function processData() {
   try {
-    const url =
-      "https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u";
+    // const url = "https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u";
+    const url = "https://live.kilvn.com/iptv.m3u"
     // const url = "https://cdn.jsdelivr.net/gh/YangG-1989/m3u@main/Gather.m3u"
     // 从指定URL获取数据
     const response = await axios.get(url);
